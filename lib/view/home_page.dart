@@ -30,7 +30,9 @@ class HomePage extends StatelessWidget {
         customButton(text: " Excel to PDF ",onTapFunction: (){
           conversionController.convertExceltoPDF();
         }),
-       
+            customButton(text: " Image to PDF ",onTapFunction: (){
+              conversionController.convertImageToPDF();
+            }),
           
           ],
         ),

@@ -9,15 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_file/internet_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class ConversionController extends GetxController{
 
-  Future<File?> getFile({required FileType fileType}) async{
+  Future<File?> getFile({required List<String> fileTypes}) async{
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowCompression: true,
-        type: fileType,
+        type: FileType.custom,
+        allowedExtensions: fileTypes,
       );
       if (result != null) {
         var file = File(result.files.single.path!);
@@ -29,6 +32,37 @@ class ConversionController extends GetxController{
       return null;
     }
   }
+
+   convertImageToPDF() async {
+    try {
+      File? file = await getFile(fileTypes: ['png', 'jpg']);
+      //Create the PDF document
+      PdfDocument document = PdfDocument();
+      //Add the page
+      PdfPage page = document.pages.add();
+      //Load the image.
+      var data = file?.readAsBytesSync();
+      String data2 = base64Encode(data!);
+      final PdfImage image = PdfBitmap.fromBase64String(data2);
+      //draw image to the first page
+      page.graphics.drawImage(
+          image, Rect.fromLTWH(0, 0, page.size.width, page.size.height));
+      //Save the docuemnt
+      List<int> bytes = document.save();
+      String localPath = await ExternalPath.getExternalStoragePublicDirectory(
+          ExternalPath.DIRECTORY_DOWNLOADS);
+      File saveFile = File('$localPath/Output.pdf');
+//Write the PDF data
+      if (await Permission.storage.request().isGranted) {
+        await saveFile.writeAsBytes(bytes, flush: true);
+      }
+      //Dispose the document.
+      document.dispose();
+    }catch(e){
+      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+    }
+  }
+
 
   convertPdfToJpg() async {
     try {
