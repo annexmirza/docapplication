@@ -4,10 +4,7 @@ import 'dart:typed_data';
 
 import 'package:external_path/external_path.dart';
 import 'package:file_picker/file_picker.dart';
-<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
-=======
->>>>>>> 1fdaf5d2c84852cf36f5e3b608bf2e6531710d3d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -121,12 +118,7 @@ class ConversionController extends GetxController{
         var abc = jsonDecode(response.body);
         String fileUrl = abc['Files'][0]['Url'];
 
-        // final Uint8List bytes = await InternetFile.get(
-        //   fileUrl,
-        //   process: (percentage) {
-        //     print('downloadPercentage: $percentage');
-        //   },
-        // );
+       
         if(await Permission.storage.request().isGranted){
           HttpClient httpClient=HttpClient();
           var request = await httpClient.getUrl(Uri.parse(fileUrl));
