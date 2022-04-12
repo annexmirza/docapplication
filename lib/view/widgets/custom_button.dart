@@ -1,13 +1,12 @@
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 
 Widget customButton({
   onTapFunction,
-  color = Colors.red,
-  double radius = 12,
-  double height = 34,
-  double width = 60,
+  color = Colors.blue,
+  double radius = 2,
+  double height = 80,
+  double width = 180,
   textColor = Colors.white,
   text = '',
   double textSize = 10,
