@@ -14,24 +14,27 @@ Widget customButton({
   fontWeight = FontWeight.normal,
   Color borderColor = Colors.transparent,
 }) {
-  return Container(
-      height: height.h,
-      width: width.w,
-      //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(radius.r),
-        border: Border.all(color: borderColor, width: 1),
-        color: color,
-      ),
-      child: Center(
-        child: Text(
-          text,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: textSize.sp,
-            fontWeight: fontWeight,
-            color: textColor,
-          ),
+  return InkWell(
+    onTap: onTapFunction,
+    child: Container(
+        height: height.h,
+        width: width.w,
+        //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius.r),
+          border: Border.all(color: borderColor, width: 1),
+          color: color,
         ),
-      ));
+        child: Center(
+          child: Text(
+            text,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: textSize.sp,
+              fontWeight: fontWeight,
+              color: textColor,
+            ),
+          ),
+        )),
+  );
 }

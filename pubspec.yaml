@@ -37,6 +37,11 @@ dependencies:
   get:
   flutter_screenutil: ^5.0.0
   flutter_easyloading:
+  file_picker: ^4.5.1
+  external_path: ^1.0.1
+  http: ^0.13.4
+  internet_file: ^1.0.0+2
+  permission_handler: ^9.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
