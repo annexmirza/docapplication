@@ -5,8 +5,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [customButton(text: " onpress ")],
+      body: SafeArea(
+        child: Column(
+          children: [
+            customButton(text: " onpress ")
+          ],
+        ),
       ),
     );
   }
