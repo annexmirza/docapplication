@@ -4,7 +4,10 @@ import 'dart:typed_data';
 
 import 'package:external_path/external_path.dart';
 import 'package:file_picker/file_picker.dart';
+<<<<<<< HEAD
 import 'package:flutter/foundation.dart';
+=======
+>>>>>>> 1fdaf5d2c84852cf36f5e3b608bf2e6531710d3d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -13,16 +16,20 @@ import 'package:permission_handler/permission_handler.dart';
 
 class ConversionController extends GetxController{
 
-
-  getFile({required FileType fileType}) async{
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      allowCompression: true,
-      type: fileType,
-    );
-    if (result != null) {
-      var file = File(result.files.single.path!);
-    } else {
-      // User canceled the picker
+  Future<File?> getFile({required FileType fileType}) async{
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowCompression: true,
+        type: fileType,
+      );
+      if (result != null) {
+        var file = File(result.files.single.path!);
+        return file;
+      }
+      return null;
+    }catch(e){
+      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+      return null;
     }
   }
 
