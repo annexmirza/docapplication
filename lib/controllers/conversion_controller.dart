@@ -8,10 +8,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 import 'package:internet_file/internet_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
+import 'package:path/path.dart' as path;
 
 class ConversionController extends GetxController{
 
@@ -33,31 +35,51 @@ class ConversionController extends GetxController{
     }
   }
 
-   convertImageToPDF() async {
-    try {
-      File? file = await getFile(fileTypes: ['png', 'jpg']);
-      //Create the PDF document
-      PdfDocument document = PdfDocument();
-      //Add the page
-      PdfPage page = document.pages.add();
-      //Load the image.
-      var data = file?.readAsBytesSync();
-      String data2 = base64Encode(data!);
-      final PdfImage image = PdfBitmap.fromBase64String(data2);
-      //draw image to the first page
-      page.graphics.drawImage(
-          image, Rect.fromLTWH(0, 0, page.size.width, page.size.height));
-      //Save the docuemnt
-      List<int> bytes = document.save();
-      String localPath = await ExternalPath.getExternalStoragePublicDirectory(
-          ExternalPath.DIRECTORY_DOWNLOADS);
-      File saveFile = File('$localPath/Output.pdf');
-//Write the PDF data
-      if (await Permission.storage.request().isGranted) {
-        await saveFile.writeAsBytes(bytes, flush: true);
+  Future<File?> getImageFromCamera() async{
+    try{
+      final XFile? xFile = await ImagePicker().pickImage(source: ImageSource.camera);
+      if(xFile != null){
+        File file = File(xFile.path);
+        return file;
       }
-      //Dispose the document.
-      document.dispose();
+      return null;
+    }catch(e) {
+      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+      return null;
+    }
+  }
+
+   convertImageToPDF({required bool imageFromCamera}) async {
+    try {
+      File? file;
+      String? fileName;
+      if(imageFromCamera){
+        file = await getImageFromCamera();
+      }else {
+        file = await getFile(fileTypes: ['png', 'jpg']);
+      }
+      if(file != null) {
+        fileName = path.basenameWithoutExtension(file.path);
+        PdfDocument document = PdfDocument();
+        PdfPage page = document.pages.add();
+        var data = file.readAsBytesSync();
+        String data2 = base64Encode(data);
+        final PdfImage image = PdfBitmap.fromBase64String(data2);
+        page.graphics.drawImage(
+            image, Rect.fromLTWH(0, 0, page.size.width, page.size.height));
+        List<int> bytes = document.save();
+        String localPath = await ExternalPath.getExternalStoragePublicDirectory(
+            ExternalPath.DIRECTORY_DOWNLOADS);
+        File saveFile = File('$localPath/$fileName.pdf');
+        if (await Permission.storage
+            .request()
+            .isGranted) {
+          await saveFile.writeAsBytes(bytes, flush: true);
+        }
+        document.dispose();
+      }else{
+        Get.snackbar('Error', 'No File Selected',backgroundColor: Colors.black,colorText: Colors.white);
+      }
     }catch(e){
       Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
     }

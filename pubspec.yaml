@@ -48,6 +48,7 @@ dependencies:
   permission_handler: ^9.2.0
   syncfusion_flutter_pdf: ^20.1.48-beta
   path_provider: ^2.0.9
+  image_picker: ^0.8.5
 dev_dependencies:
   flutter_test:
     sdk: flutter

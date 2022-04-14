@@ -75,7 +75,15 @@ class HomePage extends StatelessWidget {
                 customButton(
                     text: " Image to PDF ",
                     onTapFunction: () {
-                      conversionController.convertImageToPDF();
+                      conversionController.convertImageToPDF(imageFromCamera: false);
+                    }),
+                SizedBox(
+                  height: 10.h,
+                ),
+                customButton(
+                    text: "Image From Camera to PDF ",
+                    onTapFunction: () {
+                      conversionController.convertImageToPDF(imageFromCamera: true);
                     }),
               ],
             ),
