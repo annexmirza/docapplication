@@ -50,7 +50,9 @@ dependencies:
   syncfusion_flutter_pdf: ^20.1.48-beta
   path_provider: ^2.0.9
   flutter_pdfview: ^1.2.1
+  image_picker: ^0.8.5
   syncfusion_flutter_signaturepad: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

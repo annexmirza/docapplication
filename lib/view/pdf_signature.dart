@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:syncfusion_flutter_signaturepad/signaturepad.dart';
 import '../controllers/pdf_signature_controller.dart';
 
 class PdfSignaturePage extends StatelessWidget {
