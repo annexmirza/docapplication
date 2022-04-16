@@ -38,6 +38,7 @@ dependencies:
   path: ^1.8.0
   sqflite: ^2.0.2
   flutter_staggered_grid_view: ^0.4.0-nullsafety.3
+  flutter_signature_pad: ^3.0.0
   get:
   flutter_screenutil: ^5.0.0
   flutter_easyloading:
@@ -48,6 +49,8 @@ dependencies:
   permission_handler: ^9.2.0
   syncfusion_flutter_pdf: ^20.1.48-beta
   path_provider: ^2.0.9
+  flutter_pdfview: ^1.2.1
+  syncfusion_flutter_signaturepad: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
