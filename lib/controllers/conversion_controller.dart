@@ -16,6 +16,8 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path/path.dart' as path;
 
 class ConversionController extends GetxController{
+  bool isLoading=false;
+
 
   Future<File?> getFile({required List<String> fileTypes}) async{
     try {
@@ -50,6 +52,8 @@ class ConversionController extends GetxController{
   }
 
    convertImageToPDF({required bool imageFromCamera}) async {
+     isLoading=true;
+     update();
     try {
       File? file;
       String? fileName;
@@ -83,10 +87,14 @@ class ConversionController extends GetxController{
     }catch(e){
       Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
     }
+         isLoading=false;
+     update();
   }
 
 
   convertPdfToJpg() async {
+         isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -139,8 +147,12 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
   convertDocxToPdf() async {
+         isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -195,8 +207,12 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
     convertDocxToJpg() async {
+           isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -249,8 +265,12 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
   convertDocxToHTML() async {
+         isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -310,9 +330,13 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
 
   convertPPTToPdf() async {
+         isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -372,9 +396,13 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
 
   convertExceltoPDF() async {
+         isLoading=true;
+     update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -434,6 +462,8 @@ class ConversionController extends GetxController{
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
+         isLoading=false;
+     update();
   }
   
 }

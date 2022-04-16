@@ -13,79 +13,83 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                customButton(
-                    text: " Quick notes ",
-                    onTapFunction: () {
-                      Get.to(() => NotesPage());
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " PDF to JPG ",
-                    onTapFunction: () {
-                      conversionController.convertPdfToJpg();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " Docx to JPG ",
-                    onTapFunction: () {
-                      conversionController.convertDocxToJpg();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " DOcx to PDF ",
-                    onTapFunction: () {
-                      conversionController.convertDocxToPdf();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " DOcx to HTML ",
-                    onTapFunction: () {
-                      conversionController.convertDocxToHTML();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " PPT to PDF ",
-                    onTapFunction: () {
-                      conversionController.convertPPTToPdf();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " Excel to PDF ",
-                    onTapFunction: () {
-                      conversionController.convertExceltoPDF();
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: " Image to PDF ",
-                    onTapFunction: () {
-                      conversionController.convertImageToPDF(imageFromCamera: false);
-                    }),
-                SizedBox(
-                  height: 10.h,
-                ),
-                customButton(
-                    text: "Image From Camera to PDF ",
-                    onTapFunction: () {
-                      conversionController.convertImageToPDF(imageFromCamera: true);
-                    }),
-              ],
+            child: GetBuilder<ConversionController>(
+              builder: (conversionController) {
+                return conversionController.isLoading?Center(child: CircularProgressIndicator(),): Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    customButton(
+                        text: " Quick notes ",
+                        onTapFunction: () {
+                          Get.to(() => NotesPage());
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " PDF to JPG ",
+                        onTapFunction: () {
+                          conversionController.convertPdfToJpg();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " Docx to JPG ",
+                        onTapFunction: () {
+                          conversionController.convertDocxToJpg();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " DOcx to PDF ",
+                        onTapFunction: () {
+                          conversionController.convertDocxToPdf();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " DOcx to HTML ",
+                        onTapFunction: () {
+                          conversionController.convertDocxToHTML();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " PPT to PDF ",
+                        onTapFunction: () {
+                          conversionController.convertPPTToPdf();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " Excel to PDF ",
+                        onTapFunction: () {
+                          conversionController.convertExceltoPDF();
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: " Image to PDF ",
+                        onTapFunction: () {
+                          conversionController.convertImageToPDF(imageFromCamera: false);
+                        }),
+                    SizedBox(
+                      height: 10.h,
+                    ),
+                    customButton(
+                        text: "Image From Camera to PDF ",
+                        onTapFunction: () {
+                          conversionController.convertImageToPDF(imageFromCamera: true);
+                        }),
+                  ],
+                );
+              }
             ),
           ),
         ),
