@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'view/home_page.dart';
+import 'view/home_tab_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   // await Firebase.initializeApp(
   //     // options: DefaultFirebaseOptions.currentPlatform
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
 }
 
 Widget landingPage() {
-  return HomePage();
+  return HomeTabPage();
   // NotesPageScreen();
 
   // HtmlEditorExample(title: 'asd',);

@@ -2,6 +2,7 @@ import 'package:docapplication/controllers/conversion_controller.dart';
 import 'package:docapplication/view/pdf_signature.dart';
 import 'package:docapplication/view/quick_notes/notes_page.dart';
 import 'package:docapplication/view/widgets/custom_button.dart';
+import 'package:docapplication/view/widgets/file_iocn_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,6 +24,16 @@ class HomePage extends StatelessWidget {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        FileInfoContainer(
+                          svgUrl: "assets/quick notes.svg",
+                          title: "kajhsdkaj",
+                          onTap: () {
+                            print("ontab Click");
+                          },
+                        ),
+                        SizedBox(
+                          height: 400,
+                        ),
                         customButton(
                             text: " Quick notes ",
                             onTapFunction: () {
