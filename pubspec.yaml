@@ -34,6 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  dropdown_search: ^5.0.2
+  
   intl: 
   path: ^1.8.0
   sqflite: ^2.0.2
@@ -53,6 +55,12 @@ dependencies:
   image_picker: ^0.8.5
   syncfusion_flutter_signaturepad: any
   flutter_svg: ^1.0.3
+  auto_size_text: ^3.0.0
+  google_fonts: ^2.3.2
+  get_storage: ^2.0.3
+  # qr_code_scanner: ^0.7.0
+  mobile_scanner: ^1.1.1
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +96,17 @@ flutter:
     - assets/ppttopdf.svg
     - assets/exceltopdf.svg
     - assets/more.svg
+    - assets/imagetopdf.svg
+    - assets/cameratopdf.svg
+    - assets/qrscanner.svg
+    - assets/invoice.svg
+    - assets/resume.svg
+    - assets/signature.svg
+    - assets/illustration.svg
+    - assets/ExceltoPdfI.svg
+    - assets/DoctoJpegI.svg
+    - assets/invoicei.svg
+
     # - assets/quick notes.svg
   #   - images/a_dot_ham.jpeg
 

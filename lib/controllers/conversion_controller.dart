@@ -15,11 +15,10 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path/path.dart' as path;
 
-class ConversionController extends GetxController{
-  bool isLoading=false;
+class ConversionController extends GetxController {
+  bool isLoading = false;
 
-
-  Future<File?> getFile({required List<String> fileTypes}) async{
+  Future<File?> getFile({required List<String> fileTypes}) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowCompression: true,
@@ -31,38 +30,42 @@ class ConversionController extends GetxController{
         return file;
       }
       return null;
-    }catch(e){
-      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar('Error', e.toString(),
+          backgroundColor: Colors.black, colorText: Colors.white);
       return null;
     }
   }
 
-  Future<File?> getImageFromCamera() async{
-    try{
-      final XFile? xFile = await ImagePicker().pickImage(source: ImageSource.camera);
-      if(xFile != null){
+  Future<File?> getImageFromCamera() async {
+    try {
+      final XFile? xFile =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (xFile != null) {
         File file = File(xFile.path);
         return file;
       }
       return null;
-    }catch(e) {
-      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar('Error', e.toString(),
+          backgroundColor: Colors.black, colorText: Colors.white);
       return null;
     }
   }
 
-   convertImageToPDF({required bool imageFromCamera}) async {
-     isLoading=true;
-     update();
+  convertImageToPDF({required bool imageFromCamera}) async {
+    isLoading = true;
+    update();
     try {
       File? file;
       String? fileName;
-      if(imageFromCamera){
+      if (imageFromCamera) {
         file = await getImageFromCamera();
-      }else {
+        isLoading = true;
+      } else {
         file = await getFile(fileTypes: ['png', 'jpg']);
       }
-      if(file != null) {
+      if (file != null) {
         fileName = path.basenameWithoutExtension(file.path);
         PdfDocument document = PdfDocument();
         PdfPage page = document.pages.add();
@@ -75,29 +78,32 @@ class ConversionController extends GetxController{
         String localPath = await ExternalPath.getExternalStoragePublicDirectory(
             ExternalPath.DIRECTORY_DOWNLOADS);
         File saveFile = File('$localPath/$fileName.pdf');
-        if (await Permission.storage
-            .request()
-            .isGranted) {
+        if (await Permission.storage.request().isGranted) {
           await saveFile.writeAsBytes(bytes, flush: true);
+          isLoading = false;
         }
         document.dispose();
-      }else{
-        Get.snackbar('Error', 'No File Selected',backgroundColor: Colors.black,colorText: Colors.white);
+      } else {
+        Get.snackbar('Error', 'No File Selected',
+            backgroundColor: Colors.black, colorText: Colors.white);
       }
-    }catch(e){
-      Get.snackbar('Error', e.toString(),backgroundColor: Colors.black,colorText: Colors.white);
+    } catch (e) {
+      Get.snackbar('Error', e.toString(),
+          backgroundColor: Colors.black, colorText: Colors.white);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
 
-
   convertPdfToJpg() async {
-         isLoading=true;
-     update();
+    isLoading = true;
+
+    update();
+
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
+
       String url =
           'https://v2.convertapi.com/convert/pdf/to/jpg?Secret=LN72qmLNad8Jwa8J';
       var filePickerResult = await FilePicker.platform.pickFiles(
@@ -105,8 +111,11 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['pdf'],
       );
+      isLoading = true;
+      update();
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
+
         String filePath = file.path;
         String fileName = file.path.split('/').last;
         Uint8List? fileInBytes = file.readAsBytesSync();
@@ -134,25 +143,27 @@ class ConversionController extends GetxController{
             print('downloadPercentage: $percentage');
           },
         );
-        if(await Permission.storage.request().isGranted){
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+        if (await Permission.storage.request().isGranted) {
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
+
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
+
   convertDocxToPdf() async {
-         isLoading=true;
-     update();
+    isLoading = true;
+    update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -163,6 +174,7 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['docx'],
       );
+      isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -186,33 +198,31 @@ class ConversionController extends GetxController{
         var abc = jsonDecode(response.body);
         String fileUrl = abc['Files'][0]['Url'];
 
-       
-        if(await Permission.storage.request().isGranted){
-          HttpClient httpClient=HttpClient();
+        if (await Permission.storage.request().isGranted) {
+          HttpClient httpClient = HttpClient();
           var request = await httpClient.getUrl(Uri.parse(fileUrl));
-  var response = await request.close();
-  var bytes = await consolidateHttpClientResponseBytes(response);
+          var response = await request.close();
+          var bytes = await consolidateHttpClientResponseBytes(response);
 
-
-
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
-    convertDocxToJpg() async {
-           isLoading=true;
-     update();
+
+  convertDocxToJpg() async {
+    isLoading = true;
+    update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -223,6 +233,7 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['docx'],
       );
+      isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -252,25 +263,26 @@ class ConversionController extends GetxController{
             print('downloadPercentage: $percentage');
           },
         );
-        if(await Permission.storage.request().isGranted){
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+        if (await Permission.storage.request().isGranted) {
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
+
   convertDocxToHTML() async {
-         isLoading=true;
-     update();
+    isLoading = true;
+    update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -281,6 +293,8 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['docx'],
       );
+      isLoading = true;
+
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -310,33 +324,31 @@ class ConversionController extends GetxController{
         //     print('downloadPercentage: $percentage');
         //   },
         // );
-        if(await Permission.storage.request().isGranted){
-          HttpClient httpClient=HttpClient();
+        if (await Permission.storage.request().isGranted) {
+          HttpClient httpClient = HttpClient();
           var request = await httpClient.getUrl(Uri.parse(fileUrl));
-  var response = await request.close();
-  var bytes = await consolidateHttpClientResponseBytes(response);
+          var response = await request.close();
+          var bytes = await consolidateHttpClientResponseBytes(response);
 
-
-
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
-      Get.snackbar('Error', e.toString(),
+      Get.snackbar('Errorrrrrr', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
 
   convertPPTToPdf() async {
-         isLoading=true;
-     update();
+    isLoading = true;
+    update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -347,6 +359,7 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['ppt'],
       );
+      isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -376,33 +389,31 @@ class ConversionController extends GetxController{
         //     print('downloadPercentage: $percentage');
         //   },
         // );
-        if(await Permission.storage.request().isGranted){
-          HttpClient httpClient=HttpClient();
+        if (await Permission.storage.request().isGranted) {
+          HttpClient httpClient = HttpClient();
           var request = await httpClient.getUrl(Uri.parse(fileUrl));
-  var response = await request.close();
-  var bytes = await consolidateHttpClientResponseBytes(response);
+          var response = await request.close();
+          var bytes = await consolidateHttpClientResponseBytes(response);
 
-
-
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
 
   convertExceltoPDF() async {
-         isLoading=true;
-     update();
+    isLoading = true;
+    update();
     try {
       String _localPath = await ExternalPath.getExternalStoragePublicDirectory(
           ExternalPath.DIRECTORY_DOWNLOADS);
@@ -413,6 +424,7 @@ class ConversionController extends GetxController{
         type: FileType.custom,
         allowedExtensions: ['xlsx'],
       );
+      isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -442,28 +454,25 @@ class ConversionController extends GetxController{
         //     print('downloadPercentage: $percentage');
         //   },
         // );
-        if(await Permission.storage.request().isGranted){
-          HttpClient httpClient=HttpClient();
+        if (await Permission.storage.request().isGranted) {
+          HttpClient httpClient = HttpClient();
           var request = await httpClient.getUrl(Uri.parse(fileUrl));
-  var response = await request.close();
-  var bytes = await consolidateHttpClientResponseBytes(response);
+          var response = await request.close();
+          var bytes = await consolidateHttpClientResponseBytes(response);
 
-
-
-        var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
-            .writeAsBytes(bytes);
-        print(file1);
+          var file1 = await File('${_localPath}/${abc['Files'][0]['FileName']}')
+              .writeAsBytes(bytes);
+          print(file1);
         }
-        
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
-         isLoading=false;
-     update();
+    isLoading = false;
+    update();
   }
-  
 }
