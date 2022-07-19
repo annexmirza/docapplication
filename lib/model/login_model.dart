@@ -17,10 +17,6 @@ class LoginRequestModel {
   String? password;
   LoginRequestModel({this.email, this.password});
   Map<String, dynamic> tojson() {
-    Map<String, dynamic> map = {
-      "email ": email?.trim(),
-      "password": password?.trim()
-    };
-    return map;
+    return {"email": email, "password": password};
   }
 }
