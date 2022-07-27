@@ -1,38 +1,53 @@
-import 'dart:convert';
+import 'dart:io';
 
-import 'package:docapplication/model/login_model.dart';
+import 'package:docapplication/model/user_model.dart';
+import 'package:docapplication/services/api_service.dart';
+import 'package:docapplication/view/home_page.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:uuid/uuid.dart';
+// import 'package:dio/dio.dart';
 
 class AuthController extends GetxController {
   //  for Login
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  logIn() {
-    APIServise apiServise = APIServise();
-    LoginRequestModel requestModel = LoginRequestModel(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim());
+  TextEditingController nameController = TextEditingController();
+  String gender = "";
 
-    apiServise.login(requestModel);
+  logIn() {
+    ApiServices apiService = ApiServices();
+
+    apiService.login(
+        emailController.text.trim(), passwordController.text.trim());
 
     // var res = CallApi.postData();
   }
-}
 
-class APIServise {
-  login(LoginRequestModel requestModel) async {
-    var url =
-        Uri.parse("https://thevolunteerslab.com/docapp/api/v1/users/login");
-    final responce =
-        await http.post(url, body: requestModel.tojson(), headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    });
-    Get.snackbar('Login', 'Login Successfully');
-    print('myres' + responce.statusCode.toString());
-    print('myres' + responce.body.toString());
+  register() {
+    Uuid uuid = Uuid();
+    String id = uuid.v4();
+    UserModel userModel = UserModel(
+      name: nameController.text.trim(),
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
+      id: id,
+      profilePic: "",
+      gender: gender,
+    );
+    ApiServices apiServices = ApiServices();
+    apiServices.register(userModel);
+  }
+
+  uploadFile() async {
+    FilePickerResult? file =
+        await FilePicker.platform.pickFiles(type: FileType.any);
+    ApiServices apiServices = ApiServices();
+    apiServices.uploadFile(file!.files);
   }
 }

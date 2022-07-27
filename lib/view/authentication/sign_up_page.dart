@@ -1,3 +1,4 @@
+import 'package:docapplication/controllers/authentication_controller.dart';
 import 'package:docapplication/view/authentication/login_page.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import '../../constants.dart';
 import '../widgets/custom_text_field.dart';
 
 class SignupPage extends StatelessWidget {
-  const SignupPage({Key? key}) : super(key: key);
-
+  SignupPage({Key? key}) : super(key: key);
+  AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,18 +36,21 @@ class SignupPage extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Customtextfield(
             lableName: "name",
+            textEditingController: authController.nameController,
           ),
         ),
         Container(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Customtextfield(
             lableName: "email",
+            textEditingController: authController.emailController,
           ),
         ),
         Container(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
           child: Customtextfield(
             lableName: " Password",
+            textEditingController: authController.passwordController,
           ),
         ),
         Padding(
@@ -66,7 +70,10 @@ class SignupPage extends StatelessWidget {
               //     labelText: "Menu mode",
               //     hintText: "country in menu mode",
               // ),
-              onChanged: print,
+              onChanged: (value) {
+                authController.gender = value!;
+                authController.update();
+              },
               selectedItem: "---Selected Gender---",
             ),
           ),
@@ -85,6 +92,7 @@ class SignupPage extends StatelessWidget {
             child: ElevatedButton(
               child: const Text('Sign up'),
               onPressed: () {
+                authController.register();
                 // print(nameController.text);
                 // print(passwordController.text);
               },
