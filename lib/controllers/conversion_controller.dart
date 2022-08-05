@@ -65,6 +65,7 @@ class ConversionController extends GetxController {
       if (imageFromCamera) {
         file = await getImageFromCamera();
         isLoading = true;
+        isLoading = true;
       } else {
         file = await getFile(fileTypes: ['png', 'jpg']);
       }
@@ -117,6 +118,8 @@ class ConversionController extends GetxController {
       );
       isLoading = true;
       update();
+      isLoading = true;
+      update();
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
 
@@ -161,6 +164,7 @@ class ConversionController extends GetxController {
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
       isLoading = false;
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
@@ -184,6 +188,7 @@ class ConversionController extends GetxController {
         type: FileType.custom,
         allowedExtensions: ['docx'],
       );
+      isLoading = true;
       isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
@@ -223,6 +228,7 @@ class ConversionController extends GetxController {
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
       isLoading = false;
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
@@ -245,6 +251,7 @@ class ConversionController extends GetxController {
         type: FileType.custom,
         allowedExtensions: ['docx'],
       );
+      isLoading = true;
       isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
@@ -288,6 +295,7 @@ class ConversionController extends GetxController {
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
       isLoading = false;
+      isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
@@ -311,6 +319,8 @@ class ConversionController extends GetxController {
       );
       isLoading = true;
 
+      isLoading = true;
+
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -358,8 +368,9 @@ class ConversionController extends GetxController {
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
       isLoading = false;
+      isLoading = false;
     } catch (e) {
-      Get.snackbar('Errorrrrrr', e.toString(),
+      Get.snackbar('Errorrrrrrrrrrr', e.toString(),
           colorText: Colors.white, backgroundColor: Colors.red);
     }
     isLoading = false;
@@ -379,6 +390,7 @@ class ConversionController extends GetxController {
         type: FileType.custom,
         allowedExtensions: ['ppt'],
       );
+      isLoading = true;
       isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
@@ -426,6 +438,7 @@ class ConversionController extends GetxController {
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
       isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),
@@ -449,6 +462,7 @@ class ConversionController extends GetxController {
         allowedExtensions: ['xlsx'],
       );
       isLoading = true;
+      isLoading = true;
       if (filePickerResult != null) {
         File file = File(filePickerResult.files.single.path!);
         String filePath = file.path;
@@ -495,6 +509,7 @@ class ConversionController extends GetxController {
       }
       Get.snackbar('Success', 'File converted successfully',
           colorText: Colors.white, backgroundColor: Colors.green);
+      isLoading = false;
       isLoading = false;
     } catch (e) {
       Get.snackbar('Error', e.toString(),

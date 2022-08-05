@@ -12,7 +12,10 @@ import 'package:get/get.dart';
 
 import 'view/authentication/login_page.dart';
 import 'view/doc_to_pdf_mid_page.dart';
+import 'view/authentication/login_page.dart';
+import 'view/doc_to_pdf_mid_page.dart';
 import 'view/home_page.dart';
+import 'view/home_tab_page.dart';
 import 'view/home_tab_page.dart';
 
 void main() async {
