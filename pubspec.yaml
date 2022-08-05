@@ -34,6 +34,8 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  dropdown_search: ^5.0.2
+  
   intl: 
   path: ^1.8.0
   sqflite: ^2.0.2
@@ -44,7 +46,9 @@ dependencies:
   flutter_easyloading:
   file_picker: ^4.5.1
   external_path: ^1.0.1
+
   http: ^0.13.4
+  dio: ^4.0.6
   internet_file: ^1.0.0+2
   permission_handler: ^9.2.0
   syncfusion_flutter_pdf: ^20.1.48-beta
@@ -52,6 +56,17 @@ dependencies:
   flutter_pdfview: ^1.2.1
   image_picker: ^0.8.5
   syncfusion_flutter_signaturepad: any
+  flutter_svg: ^1.0.3
+  auto_size_text: ^3.0.0
+  google_fonts: ^2.3.2
+  get_storage: ^2.0.3
+  # qr_code_scanner: ^0.7.0
+  mobile_scanner:
+  google_nav_bar: ^5.0.6
+  localstore: ^1.2.3
+  uuid: ^3.0.6
+  percent_indicator: ^4.2.2
+  flutter_file_view: ^2.0.7
 
 dev_dependencies:
   flutter_test:
@@ -76,8 +91,31 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/svg.svg
+    - assets/pdf.svg
+    - assets/quicknotes.svg
+    - assets/pdftojpeg.svg
+    - assets/docstojpeg.svg
+    - assets/docstopdf.svg
+    - assets/docstohtml.svg
+    - assets/ppttopdf.svg
+    - assets/exceltopdf.svg
+    - assets/more.svg
+    - assets/imagetopdf.svg
+    - assets/cameratopdf.svg
+    - assets/qrscanner.svg
+    - assets/invoice.svg
+    - assets/resume.svg
+    - assets/signature.svg
+    - assets/illustration.svg
+    - assets/ExceltoPdfI.svg
+    - assets/DoctoJpegI.svg
+    - assets/invoicei.svg
+    - assets/files/
+    - assets/icons/
+
+    # - assets/quick notes.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

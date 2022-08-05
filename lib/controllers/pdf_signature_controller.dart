@@ -102,7 +102,7 @@ class PdfSignatureController extends GetxController {
       Directory? appdir = await getExternalStorageDirectory();
       editedPdfFile = File('${appdir!.path}/output.pdf');
       update();
-      File('${appdir.path}/output.pdf').writeAsBytes(document.save());
+      File('${appdir.path}/output.pdf').writeAsBytes(await document.save());
 
       print('file saved at : ${appdir.path}/output.pdf');
     } catch (e) {
