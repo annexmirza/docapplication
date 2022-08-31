@@ -1,5 +1,6 @@
 import 'package:docapplication/constants.dart';
 import 'package:docapplication/controllers/conversion_controller.dart';
+import 'package:docapplication/view/invoice_company_details_screen.dart';
 import 'package:docapplication/view/widgets/custom_button.dart';
 import 'package:docapplication/view/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class InvoiceGenrationMidScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: appdarkGreyColor,
+          backgroundColor: appGreenColor,
           title: Text("Invoice"),
         ),
         body: Column(
@@ -88,8 +89,9 @@ class InvoiceGenrationMidScreen extends StatelessWidget {
                       text: "Start",
                       height: 60.h,
                       width: 220.w,
-                      color: appdarkGreyColor,
+                      color: appGreenColor,
                       onTapFunction: () {
+                        Get.to(() => InvoiceCompanyDetailsScreen());
                         // conversionController.convertPPTToPdf();
                       },
                       radius: 10,

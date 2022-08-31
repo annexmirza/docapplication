@@ -1,5 +1,6 @@
 import 'package:docapplication/constants.dart';
 import 'package:docapplication/controllers/authentication_controller.dart';
+import 'package:docapplication/controllers/invoice_controller.dart';
 import 'package:docapplication/view/authentication/sign_up_page.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import '../widgets/custom_text_field.dart';
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
   AuthController authController = Get.put(AuthController());
+  InvoiceCOntroller invoiceController = Get.put(InvoiceCOntroller());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,7 +64,8 @@ class LoginPage extends StatelessWidget {
             child: ElevatedButton(
               child: const Text('Login'),
               onPressed: () {
-                authController.logIn();
+                // authController.logIn();
+                invoiceController.generateFile();
                 // print(nameController.text);
                 // print(passwordController.text);
               },

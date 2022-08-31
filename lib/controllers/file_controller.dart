@@ -5,12 +5,15 @@ import 'package:docapplication/controllers/authentication_controller.dart';
 import 'package:docapplication/model/file_model.dart';
 import 'package:docapplication/services/api_service.dart';
 import 'package:docapplication/view/all_file_viewer.dart';
+import 'package:docapplication/view/image_view.dart';
 import 'package:external_path/external_path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:get/get.dart';
 import 'package:internet_file/internet_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FileController extends GetxController {
   bool isLoading = false;
@@ -74,17 +77,30 @@ class FileController extends GetxController {
     // selectedFileExtension = fileExtension ?? '';
     downloadPath = path;
     update();
-    Get.to(AllFileViewer());
+    if (selectedFileExtension == ".jpg") {
+      Get.to(ImageView());
+    } else {
+      launchUrl(
+          Uri.parse(
+              'https://docs.google.com/gview?embedded=true&url=${downloadPath}'),
+          mode: LaunchMode.inAppWebView);
+    }
+
+    // if (selectedFileExtension == ".jpg") {
+    //   Get.to(ImageView());
+    // } else {
+    //   Get.to(AllFileViewer());
+    // }
   }
 
   getMyFiles() async {
+    if (Permission.storage.isGranted != true) Permission.storage.request();
     isLoading = true;
     fileList.clear();
     myFiles.clear();
     progress = 0.0;
     currentDownloadingFile = 1;
     totalFiles = 0;
-    update();
 
     await authController.getUserData();
     ApiServices apiServices = ApiServices();
@@ -94,11 +110,14 @@ class FileController extends GetxController {
     print(myFiles.length);
     await Future.forEach(myFiles, (dynamic element) async {
       currentDownloadingFile = myFiles.indexOf(element) + 1;
-
-      await downloadFile(element['file_url']);
-      fileList.add(FileModel.fromJson(
-          {'name': fileName, 'path': path, 'extension': fileExtension}));
-      progress = currentDownloadingFile / myFiles.length;
+      fileExtension = extension(element['file_url']);
+      fileName = basenameWithoutExtension(element['file_url']);
+      fileList.add(FileModel.fromJson({
+        'name': fileName,
+        'path': element['file_url'],
+        'extension': fileExtension
+      }));
+      progress = (currentDownloadingFile / myFiles.length);
       update();
     });
     print(fileList.length);

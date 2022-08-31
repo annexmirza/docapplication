@@ -1,10 +1,11 @@
 import 'package:docapplication/controllers/authentication_controller.dart';
 import 'package:docapplication/view/all_file_viewer.dart';
+import 'package:docapplication/view/invoice_genration_mid_page..%20copy.dart';
 import 'package:docapplication/view/nav_tab.dart';
-import 'package:docapplication/view/open_file.dart';
+// import 'package:docapplication/view/open_file.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_file_view/flutter_file_view.dart';
+// import 'package:flutter_file_view/flutter_file_view.dart';
 // import 'package:flutter_file_view/flutter_file_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,16 +38,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  _MyAppState() {
-    // FlutterFileView.initController.listen((res) {
-    //   var ex5status = res;
-    //   print('ex123' + ex5status.toString());
-    // });
-    FlutterFileView.initX5();
-    FlutterFileView.getX5Status().then((res) {
-      print('ex123' + res.toString());
-    });
-  }
+  _MyAppState() {}
   @override
   Widget build(BuildContext context) {
     // authController.getUserData();
@@ -57,7 +49,6 @@ class _MyAppState extends State<MyApp> {
                 // GlobalMaterialLocalizations.delegate,
                 // GlobalWidgetsLocalizations.delegate,
                 // GlobalCupertinoLocalizations.delegate,
-                ViewerLocalizationsDelegate.delegate,
               ],
               supportedLocales: [Locale('en', 'US'), Locale('zh', 'CN')],
               debugShowCheckedModeBanner: false,

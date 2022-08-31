@@ -25,6 +25,7 @@ class ConversionController extends GetxController {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowCompression: true,
+        allowMultiple: false,
         type: FileType.custom,
         allowedExtensions: fileTypes,
       );
@@ -147,7 +148,7 @@ class ConversionController extends GetxController {
         final Uint8List bytes = await InternetFile.get(
           fileUrl,
           process: (percentage) {
-            percent = percentage;
+            percent = percentage / 100 / 100;
             update();
 
             print('downloadPercentage: $percentage');
@@ -347,7 +348,7 @@ class ConversionController extends GetxController {
         final Uint8List bytes = await InternetFile.get(
           fileUrl,
           process: (percentage) {
-            percent = percentage;
+            percent = percentage / 100;
             update();
 
             print('downloadPercentage: $percentage');
@@ -418,7 +419,7 @@ class ConversionController extends GetxController {
         final Uint8List bytes = await InternetFile.get(
           fileUrl,
           process: (percentage) {
-            percent = percentage;
+            percent = percentage / 100;
             update();
 
             print('downloadPercentage: $percentage');
@@ -489,7 +490,7 @@ class ConversionController extends GetxController {
         final Uint8List bytes = await InternetFile.get(
           fileUrl,
           process: (percentage) {
-            percent = percentage;
+            percent = percentage / 100;
             update();
 
             print('downloadPercentage: $percentage');

@@ -24,7 +24,8 @@ class AuthController extends GetxController {
   String gender = "";
   getUserData() async {
     Map<String, dynamic>? usersJsonList = await db.collection('users').get();
-    user = UserModel.fromJson(usersJsonList!.values.first);
+    if (usersJsonList != null)
+      user = UserModel.fromJson(usersJsonList!.values.first);
     print(user);
     update();
   }
